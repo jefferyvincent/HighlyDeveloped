@@ -1,0 +1,63 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+@using ClientDependency.Core.Mvc
+
+@{
+    Layout = null;
+    // CSS
+    Html.RequiresCss("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css", new
+    {
+        integrity = "sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1",
+        crossorigin = "anonymous"
+    });
+    Html.RequiresCss("https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.css");
+    Html.RequiresCss("/css/RTE.css");
+
+    // JavaScript
+    Html.RequiresJs("https://code.jquery.com/jquery-3.5.1.min.js", new
+    {
+        integrity = "sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=",
+        crossorigin = "anonymous"
+    });
+
+    Html.RequiresJs("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js", new
+    {
+        integrity = "sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW",
+        crossorigin = "anonymous"
+    });
+
+    Html.RequiresJs("https://kit.fontawesome.com/093d4f6b00.js", new
+    {
+        crossorigin = "anonymous"
+    });
+    Html.RequiresJs("https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js", new
+    {
+        crossorigin = "anonymous"
+    });
+    Html.RequiresJs("https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.1/jquery.validate.min.js");
+    Html.RequiresJs("https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js");
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Model.Value("PageTitle", fallback: Fallback.ToDefaultValue, defaultValue: Model.Name)</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @Html.RenderCssHere()
+    @RenderSection("head", false)
+</head>
+<div>
+    <!--Navbar -->
+    @Html.Partial("NavBar")
+    @RenderBody()
+    <!-- Cookie Alert -->
+    @Html.Partial("CookieNotification")
+    <!--Footer -->
+    @Html.Partial("Footer")
+    @Html.RenderJsHere()
+    @RenderSection("ScriptsBottom", false)
+</html>

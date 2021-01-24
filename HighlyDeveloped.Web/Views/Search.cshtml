@@ -1,0 +1,63 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Search>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "Master.cshtml";
+
+    var searchQuery = Request.QueryString["query"];
+    IEnumerable<PublishedSearchResult> searchResults;
+    var resultsCount = 0;
+
+    // Do we have a search?
+    if (!string.IsNullOrEmpty(searchQuery))
+    {
+        // Ask Umbraco to search for the terms and givem me the results
+        searchResults = Umbraco.ContentQuery.Search(searchQuery, string.Empty, "InternalIndex").Where(w => w.Content.IsDocumentType("newsArticle"));
+        resultsCount = searchResults != null && searchResults.Any() ? searchResults.Count() : 0;
+    }
+    else
+    {
+        searchResults = null;
+    }
+}
+
+@Html.Partial("Hero")
+<!--render the search box-->
+<header>
+    <form action="@Model.Url" method="get">
+        <fieldset>
+            <input type="text" class="search-box" placeholder="Search..." name="query" />
+            <button class="search-button">Search</button>
+        </fieldset>
+    </form>
+</header>
+
+<!-- search results-->
+@if (!string.IsNullOrEmpty(searchQuery))
+{
+    <h1>Search Results</h1>
+    <section>
+        @if (resultsCount == 0 || searchResults == null)
+        {
+            <text>
+                No Results found for @searchQuery
+            </text>
+        }
+        else
+        {
+            <text>
+                We found @resultsCount result(s).
+            </text>
+        <ul>
+            @foreach (var result in searchResults)
+            {
+                <li>
+                    <h3>
+                        <a href="@result.Content.Url">@result.Content.Name</a>
+                    </h3>
+                </li>
+            }
+        </ul>
+            
+        }
+    </section>
+}

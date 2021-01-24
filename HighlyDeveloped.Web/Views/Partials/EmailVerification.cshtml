@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@if (!ViewData.ModelState.IsValid)
+{
+    <h3>Error</h3>
+    foreach (ModelState modelState in ViewData.ModelState.Values)
+    {
+        var errors = modelState.Errors;
+        if (errors.Any())
+        {
+            <ul>
+                @foreach (var error in errors)
+                {
+                    <li><em>@error.ErrorMessage</em></li>
+                }
+            </ul>
+        }
+    }
+}
+else
+{
+    <h2>Email Address Verified</h2>
+    <p> Thanks for verifiying your email address, you may login normally.</p>
+    <a href="/login" class="btn btn-outline-primary">Go To Login</a>
+}

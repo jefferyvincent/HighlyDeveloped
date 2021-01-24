@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    var heroImage = Model.Value<IPublishedContent>("heroImage")?.Url ?? "";
+}
+
+<style>
+    .jumbotron {
+        padding: 4rem 2rem;
+        margin-bottom: 2rem;
+        background-color: var(--bs-light);
+        border-radius: .3rem;
+        background: no-repeat center center;
+        background-size: cover;
+        color: white;
+        background-attachment: scroll;
+    }
+</style>
+
+<div class="jumbotron" style="background-image:url(@heroImage)">
+    <div class="container">
+        <h1 class="display-4">@Model.Value("HeroTitleText")</h1>
+        <p class="lead">@Model.Value("HeroSubTitle")</p>
+    </div>
+</div>
