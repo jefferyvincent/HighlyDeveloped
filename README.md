@@ -1,3 +1,3 @@
 # HighlyDeveloped
 
-Simple Umbraco test site for learning.
+Simple Umbraco test blog for learning.
